@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 //// Functions to get visibility stats
 const isElementInView = (targetElement) => {
@@ -37,37 +37,73 @@ const getEleVisibleY = (targetElement) => {
     }
 }
 
+const getHeightWidthAndVisible = (targetElement) => {
+    let boundBox = targetElement.getBoundingClientRect()
+    return ({
+        height: boundBox.height,
+        width: boundBox.width,
+        heightVisible: getEleVisibleY(targetElement) * boundBox.height,
+        widthVisible: getEleVisibleX(targetElement) * boundBox.width,
+    })
+}
+
+//// Hook on to window scroll event
+const handleScroll = (ref, setInView, setVisibleFractionX, setVisibleFractionY, setHeight, setwidth, setHeightVisible, setwidthVisible) => {
+    setInView(isElementInView(ref.current))
+    setVisibleFractionX(getEleVisibleX(ref.current))
+    setVisibleFractionY(getEleVisibleY(ref.current))
+
+    let { height, heightVisible, width, widthVisible } = getHeightWidthAndVisible(ref.current)
+    setHeight(height)
+    setwidth(width)
+    setHeightVisible(heightVisible)
+    setwidthVisible(widthVisible)
+}
+
 // Below function takes the ref to the element/component that needs to be tracked
 export const useIntersectionRevealer = (ref) => {
+    //// States for tracking data
+    // stores element visibility (boolean)
+    const [inView, setInView] = useState(isElementInView(ref.current))
+    // Stores y-axis visibility (fraction)
+    const [visibleFractionX, setVisibleFractionX] = useState(getEleVisibleX(ref.current))
+    // Stores y-axis visibility (fraction)
+    const [visibleFractionY, setVisibleFractionY] = useState(getEleVisibleY(ref.current))
+    // Stores height and width, and their absolute visibility
+    const [height, setHeight] = useState()
+    const [width, setwidth] = useState()
+    const [heightVisible, setHeightVisible] = useState()
+    const [widthVisible, setwidthVisible] = useState()
 
-    // Gets the target element
-    const [targetElement, setTargetElement] = useState(ref.current)
     useEffect(() => {
-        setTargetElement(ref.current)
         setInView(isElementInView(ref.current))
         setVisibleFractionX(getEleVisibleX(ref.current))
         setVisibleFractionY(getEleVisibleY(ref.current))
+
+        let { height, heightVisible, width, widthVisible } = getHeightWidthAndVisible(ref.current)
+        setHeight(height)
+        setwidth(width)
+        setHeightVisible(heightVisible)
+        setwidthVisible(widthVisible)
     }, [ref.current])
 
-    //// States for tracking data
-    // stores element visibility (boolean)
-    const [inView, setInView] = useState(isElementInView(targetElement))
-    // Stores y-axis visibility (fraction)
-    const [visibleFractionX, setVisibleFractionX] = useState(getEleVisibleX(targetElement))
-    // Stores y-axis visibility (fraction)
-    const [visibleFractionY, setVisibleFractionY] = useState(getEleVisibleY(targetElement))
-
     //// Hook on to window scroll event
-    const handleScroll = useCallback(() => {
-        setInView(isElementInView(targetElement))
-        setVisibleFractionX(getEleVisibleX(targetElement))
-        setVisibleFractionY(getEleVisibleY(targetElement))
-    }, [])
+    const onScroll = useCallback(() => {
+        handleScroll(ref, setInView, setVisibleFractionX, setVisibleFractionY, setHeight, setwidth, setHeightVisible, setwidthVisible)
+    }, [ref])
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll)
-        return () => { window.removeEventListener('scroll', handleScroll) }
-    }, [handleScroll])
+        window.addEventListener('scroll', onScroll)
+        return () => { window.removeEventListener('scroll', onScroll) }
+    }, [])
 
     //// Return stats
-    return { inView, visibleFractionX, visibleFractionY }
+    return {
+        inView,
+        visibleFractionX,
+        visibleFractionY,
+        height,
+        width,
+        heightVisible,
+        widthVisible
+    }
 }
