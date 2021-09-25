@@ -14,4 +14,7 @@ export const MouseStyle = styled.div`
     ${({ vanish }) => (vanish && css`
         opacity: 0;
     `)}
+    @media (max-width: 600px){
+        display: none;
+    }
 `
