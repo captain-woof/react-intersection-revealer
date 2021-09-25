@@ -39,8 +39,8 @@ export default function YourAwesomeComponent(){
     </>
   )
 }
-
 ```
+**Here's a [demo](https://sohail-saha.in/react-intersection-revealer/) to show `react-intersection-revealer`'s capabilities.**
 
 ## Usage
 
