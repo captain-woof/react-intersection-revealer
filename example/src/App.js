@@ -58,6 +58,10 @@ export default function App() {
       <IndexContainerStyle>
         <IndexBoxStyle ref={boxRef} />
       </IndexContainerStyle>
+
+      <IndexContainerStyle>
+        
+      </IndexContainerStyle>
     </>
   )
 }
