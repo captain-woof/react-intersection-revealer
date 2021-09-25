@@ -1,29 +1,64 @@
 # react-intersection-revealer
 
-> Made with create-react-library
+<p align="center">
+  <img width="320" src="https://drive.google.com/uc?export=download&id=1tJxmTfwqaCCKnDlcFNIA7S85ijLJdvvO">
+</p>
 
-[![NPM](https://img.shields.io/npm/v/react-intersection-revealer.svg)](https://www.npmjs.com/package/react-intersection-revealer) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![GitHub search hit counter](https://img.shields.io/github/search/captain-woof/react-intersection-revealer/goto?color=%23ffee00) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-intersection-revealer?color=%236969b3) ![npm](https://img.shields.io/npm/dm/react-intersection-revealer?color=%2351ae17) ![NPM](https://img.shields.io/npm/l/react-intersection-revealer?color=%23f55d3e) ![npm](https://img.shields.io/npm/v/react-intersection-revealer?color=%2366101f)
+
+> Think `react-intersection-observer`, but with more information.
+
+## Introduction
+
+**`react-intersection-revealer` is a easy-to-use React hook that tells you whether a component/element is visible on the viewport currently, and if yes, how much of it is visible.**
 
 ## Install
+
+Installing is easy. Do it like any other package.
 
 ```bash
 npm install --save react-intersection-revealer
 ```
 
-## Usage
+## Quick Start
+
+This example below is enough to get you started on how to use `react-intersection-revealer`.
 
 ```jsx
-import React, { Component } from 'react'
+import React, {useRef} from 'react'
+import {useIntersectionRevealer} from 'react-intersection-revealer'
 
-import MyComponent from 'react-intersection-revealer'
-import 'react-intersection-revealer/dist/index.css'
+export default function YourAwesomeComponent(){
+  const ref = useRef()
+  const {heightVisible} = useIntersectionRevealer(ref)
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+  return(
+    <>
+      <div className="need-to-track" ref={ref}>...</div>
+      <p>{`${heightVisible}px (height) of the tracked element is on screen`}</p>
+    </>
+  )
 }
+
 ```
+
+## Usage
+
+**The `useIntersectionRevealer` hook provides you with 7 states that hold information:**
+
+- **inView** *(Boolean)*: True if the element is visible, even if only partially. False otherwise.
+- **visibleFractionX** *(Decimal)*: Fraction of the element's width which is visible; range: [0,1].
+- **visibleFractionY** *(Decimal)*: Fraction of the element's height which is visible; range: [0,1].
+- **height** *(Decimal)*: The element's height, in pixels.
+- **width** *(Decimal)*: The element's width, in pixels.
+- **heightVisible** *(Decimal)*: Thw width (pixels) of the element's height which is visible.
+- **widthVisible** *(Decimal)*: Thw width (pixels) of the element's width which is visible.
+
+**The hook requires a reference to the element to be tracked.** Use the `useRef` hook (from React), get a reference, and pass it to both the `useIntersectionRevealer` hook and the element/component you want to track.
+
+That's all you need to do.
+
+**Take a look at the demo site, and its source code *(/examples)* to get an idea.**
 
 ## License
 
