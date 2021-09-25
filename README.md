@@ -6,7 +6,7 @@
 
 ![GitHub search hit counter](https://img.shields.io/github/search/captain-woof/react-intersection-revealer/goto?color=%23ffee00) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-intersection-revealer?color=%236969b3) ![npm](https://img.shields.io/npm/dm/react-intersection-revealer?color=%2351ae17) ![NPM](https://img.shields.io/npm/l/react-intersection-revealer?color=%23f55d3e) ![npm](https://img.shields.io/npm/v/react-intersection-revealer?color=%2366101f)
 
-> Think `react-intersection-observer`, but with more information.
+> Think `react-intersection-observer`, but with more features.
 
 ## Introduction
 
