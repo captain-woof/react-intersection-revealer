@@ -58,7 +58,7 @@ export default function YourAwesomeComponent(){
 
 That's all you need to do.
 
-**Take a look at the demo site, and its source code *(/examples)* to get an idea.**
+**Take a look at the [demo site](https://sohail-saha.in/react-intersection-revealer/), and [its source code](https://github.com/captain-woof/react-intersection-revealer/tree/master/example) to get an idea.**
 
 ## License
 
