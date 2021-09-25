@@ -6,7 +6,7 @@ const isElementInView = (targetElement) => {
         return false
     }
     let boundBox = targetElement.getBoundingClientRect()
-    return ((boundBox.top < window.innerHeight) && (boundBox.left < window.innerWidth))
+    return ((boundBox.top < window.innerHeight) && (boundBox.left < window.innerWidth) && (boundBox.bottom >= 0))
 }
 
 const getEleVisibleX = (targetElement) => {
@@ -16,10 +16,13 @@ const getEleVisibleX = (targetElement) => {
     let boundBox = targetElement.getBoundingClientRect()
     if (!isElementInView(targetElement)) {
         return 0
-    } else if (boundBox.right <= window.innerWidth) {
+    } else if ((boundBox.right <= window.innerWidth) && (boundBox.right >= 0) && (boundBox.left <= window.innerWidth) && (boundBox.left >= 0)) {
         return 1
     } else {
-        return ((window.innerWidth - boundBox.left) / boundBox.width)
+        return Math.min(
+            ((window.innerWidth - boundBox.left) / boundBox.width),
+            (boundBox.right / boundBox.width)
+        )
     }
 }
 
@@ -30,10 +33,13 @@ const getEleVisibleY = (targetElement) => {
     let boundBox = targetElement.getBoundingClientRect()
     if (!isElementInView(targetElement)) {
         return 0
-    } else if (boundBox.bottom <= window.innerHeight) {
+    } else if ((boundBox.bottom <= window.innerHeight) && (boundBox.bottom >= 0) && (boundBox.top <= window.innerHeight) && (boundBox.top >= 0)) {
         return 1
     } else {
-        return ((window.innerHeight - boundBox.top) / boundBox.height)
+        return Math.min(
+            ((window.innerHeight - boundBox.top) / boundBox.height),
+            (boundBox.bottom / boundBox.height)
+        )
     }
 }
 
