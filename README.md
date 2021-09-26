@@ -10,7 +10,7 @@
 
 ## Introduction
 
-**`react-intersection-revealer` is a easy-to-use React hook that tells you whether a component/element is visible on the viewport currently, and if yes, how much of it is visible.**
+**`react-intersection-revealer` is a easy-to-use React hook that tells you whether a component/element is visible on the viewport currently, and if yes, how much of it is visible.** The stats get updated when a relevant event occurs.
 
 ## Install
 
@@ -44,15 +44,22 @@ export default function YourAwesomeComponent(){
 
 ## Usage
 
-**The `useIntersectionRevealer` hook provides you with 7 states that hold information:**
+**The `useIntersectionRevealer` hook provides you with 9 states that hold stats of the target element:**
 
 - **inView** *(Boolean)*: True if the element is visible, even if only partially. False otherwise.
 - **visibleFractionX** *(Decimal)*: Fraction of the element's width which is visible; range: [0,1].
 - **visibleFractionY** *(Decimal)*: Fraction of the element's height which is visible; range: [0,1].
 - **height** *(Decimal)*: The element's height, in pixels.
 - **width** *(Decimal)*: The element's width, in pixels.
-- **heightVisible** *(Decimal)*: Thw width (pixels) of the element's height which is visible.
-- **widthVisible** *(Decimal)*: Thw width (pixels) of the element's width which is visible.
+- **heightVisible** *(Decimal)*: The width (pixels) of the element's height which is visible.
+- **widthVisible** *(Decimal)*: The width (pixels) of the element's width which is visible.
+- **x** *(Decimal)*: The x coordinate (pixels) of the element from origin where it's rendered.
+- **y** *(Decimal)*: The y coordinate (pixels) of the element from origin where it's rendered.
+
+**These stats get updated on any of these events:**
+  - Viewport resize *(window - onresize)*
+  - Page scroll *(window - onscroll)*
+  - Target element transition-end *(targetElement - ontransitionend)*
 
 **The hook requires a reference to the element to be tracked.** Use the `useRef` hook (from React), get a reference, and pass it to both the `useIntersectionRevealer` hook and the element/component you want to track.
 
@@ -63,3 +70,11 @@ That's all you need to do.
 ## License
 
 MIT © [captain-woof](https://github.com/captain-woof)
+
+## Author
+
+**[Sohail Saha (aka CaptainWoof)](https://sohail-saha.in)**
+
+[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=captainwoof&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/captainwoof)
+
+*Please consider supporting me if you find this package useful in your work.*
