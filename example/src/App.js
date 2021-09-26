@@ -16,7 +16,7 @@ export default function App() {
   const boxRef = useRef()
 
   // Passing ref to hook and getting states
-  const { inView, heightVisible } = useIntersectionRevealer(boxRef)
+  const { inView, heightVisible, x, y } = useIntersectionRevealer(boxRef)
 
   // For demo
   const [showStats, setShowStats] = useState(false)
@@ -49,8 +49,11 @@ export default function App() {
 
       <IndexTextStyle>
         {showStats
-          ? <><div>{`Visible: ${inView}`}</div>
-            <div>{`Visible height: ${Math.round(heightVisible)}px`}</div></>
+          ? <>
+            <div>{`Rendered at (${Math.round(x)}px, ${Math.round(y)}px)`}</div>
+            <div>{`Visible: ${inView}`}</div>
+            <div>{`Visible height: ${Math.round(heightVisible)}px`}</div>
+          </>
           : <div>Scroll to see the black box's visibility stats</div>
         }
       </IndexTextStyle>
@@ -60,7 +63,7 @@ export default function App() {
       </IndexContainerStyle>
 
       <IndexContainerStyle>
-        
+
       </IndexContainerStyle>
     </>
   )
