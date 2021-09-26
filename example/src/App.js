@@ -20,13 +20,16 @@ export default function App() {
 
   // For demo
   const [showStats, setShowStats] = useState(false)
-  const handleScroll = useCallback(() => {
+  const allowShowingStats = useCallback(() => {
     setShowStats(true)
+    window.removeEventListener('scroll', allowShowingStats)
   }, [])
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => { window.removeEventListener('scroll', handleScroll) }
-  }, [handleScroll])
+    window.addEventListener('scroll', allowShowingStats)
+  }, [allowShowingStats])
+  useEffect(() => {
+    window.addEventListener('resize', allowShowingStats)
+  }, [allowShowingStats])
 
   // For mouse pointer
   const [vanish, setVanish] = useState(false)
@@ -54,7 +57,7 @@ export default function App() {
             <div>{`Visible: ${inView}`}</div>
             <div>{`Visible height: ${Math.round(heightVisible)}px`}</div>
           </>
-          : <div>Scroll to see the black box's visibility stats</div>
+          : <div>Scroll or resize the window to see the black box's visibility stats</div>
         }
       </IndexTextStyle>
 
