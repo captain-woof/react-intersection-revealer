@@ -1,6 +1,6 @@
 {
   "name": "react-intersection-revealer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An easy-to-use React hook that tells you whether a component/element is visible on the viewport currently, and if yes, how much of it is visible.",
   "author": "captain-woof",
   "license": "MIT",
@@ -21,14 +21,12 @@
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
     "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build -b gh-pages",
-    "publish": "yarn build && npm login && npm publish"
+    "deploy": "gh-pages -d example/build -b gh-pages"
   },
   "peerDependencies": {
     "react": "^16.0.0"
   },
   "devDependencies": {
-    "microbundle-crl": "^0.13.10",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
@@ -42,6 +40,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-standard": "^4.0.1",
     "gh-pages": "^2.2.0",
+    "microbundle-crl": "^0.13.10",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
     "react": "^16.13.1",
