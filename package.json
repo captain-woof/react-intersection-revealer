@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "An easy-to-use React hook that tells you whether a component/element is visible on the viewport currently, and if yes, how much of it is visible.",
   "author": "captain-woof",
-  "keywords": ["element in viewport", "intersection", "react-intersection-observer", "react-intersection-revealer"],
+  "keywords": ["hooks", "viewport", "lazy load", "motion", "inview", "useInView", "useIntersectionRevealer", "component", "react", "intersection", "react-intersection-observer", "react-intersection-revealer"],
   "homepage": "https://github.com/captain-woof/react-intersection-revealer",
   "license": "MIT",
   "bugs": {
