@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const IndexContainerStyle = styled.div`
-    background-color: yellow;
+    background-color: ${({bgColor}) => bgColor || 'yellow'};
     display: flex;
     justify-content: center;
     align-items: center;
