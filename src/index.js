@@ -88,8 +88,42 @@ const getXY = (targetElement) => {
     }
 }
 
+const getScrollYAndProgress = (targetElement) => {
+    if (!targetElement) {
+        return { scrollY: null, scrollYProgress: null }
+    }
+
+    let boundBox = targetElement.getBoundingClientRect()
+    if ((window.innerHeight < boundBox.top) || ((window.innerHeight > boundBox.top) && (boundBox.top > 0))) {
+        // If target element has not been scrolled over yet
+        // OR, If target element is partially visible, coming from below
+        return { scrollY: 0, scrollYProgress: 0 }
+    } else if ((boundBox.top <= 0) && (boundBox.bottom >= 0)) { // If target element is partially visible, going above
+        return { scrollY: -boundBox.top, scrollYProgress: ((-boundBox.top) / boundBox.height) }
+    } else { // Element has been fully scrolled over
+        return { scrollY: boundBox.height, scrollYProgress: 1 }
+    }
+}
+
+const getScrollXAndProgress = (targetElement) => {
+    if (!targetElement) {
+        return { scrollX: null, scrollXProgress: null }
+    }
+
+    let boundBox = targetElement.getBoundingClientRect()
+    if ((window.innerWidth < boundBox.left) || ((window.innerWidth > boundBox.left) && (boundBox.left > 0))) {
+        // If target element has not been scrolled over yet
+        // OR, If target element is partially visible, coming from below
+        return { scrollX: 0, scrollXProgress: 0 }
+    } else if ((boundBox.left <= 0) && (boundBox.right >= 0)) { // If target element is partially visible, going above
+        return { scrollX: -boundBox.left, scrollXProgress: ((-boundBox.left) / boundBox.width) }
+    } else { // Element has been fully scrolled over
+        return { scrollX: boundBox.height, scrollXProgress: 1 }
+    }
+}
+
 // Handles changes in target element such as transitions, or when page scrolls
-const handleChange = (ref, setHeight, setwidth, setInView, setVisibleFractionX, setVisibleFractionY, setHeightVisible, setwidthVisible, setX, setY) => {
+const handleChange = (ref, setHeight, setwidth, setInView, setVisibleFractionX, setVisibleFractionY, setHeightVisible, setwidthVisible, setX, setY, setScrollX, setScrollXProgress, setScrollY, setScrollYProgress) => {
     setInView(isElementInView(ref.current))
     setVisibleFractionX(getEleVisibleX(ref.current))
     setVisibleFractionY(getEleVisibleY(ref.current))
@@ -105,6 +139,14 @@ const handleChange = (ref, setHeight, setwidth, setInView, setVisibleFractionX, 
     let { height, width } = getNewWidthHeight(ref.current)
     setHeight(height)
     setwidth(width)
+
+    let { scrollY, scrollYProgress } = getScrollYAndProgress(ref.current)
+    setScrollY(scrollY)
+    setScrollYProgress(scrollYProgress)
+
+    let { scrollX, scrollXProgress } = getScrollXAndProgress(ref.current)
+    setScrollX(scrollX)
+    setScrollXProgress(scrollXProgress)
 }
 
 // Below function takes the ref to the element/component that needs to be tracked
@@ -124,27 +166,23 @@ export const useIntersectionRevealer = (ref) => {
     // Stores targetElement's x,y
     const [x, setX] = useState(getXY(ref.current).x)
     const [y, setY] = useState(getXY(ref.current).y)
+    // Stores scroll progress
+    let { scrollY: initialScrollY, scrollYProgress: initialScrollYProgress } = getScrollYAndProgress(ref.current)
+    const [scrollY, setScrollY] = useState(initialScrollY)
+    const [scrollYProgress, setScrollYProgress] = useState(initialScrollYProgress)
+
+    let { scrollX: initialScrollX, scrollXProgress: initialScrollXProgress } = getScrollXAndProgress(ref.current)
+    const [scrollX, setScrollX] = useState(initialScrollX)
+    const [scrollXProgress, setScrollXProgress] = useState(initialScrollXProgress)
 
     // Sets initial stats when Target element renders (is not null)
     useEffect(() => {
-        setInView(isElementInView(ref.current))
-        setVisibleFractionX(getEleVisibleX(ref.current))
-        setVisibleFractionY(getEleVisibleY(ref.current))
-
-        let { heightVisible, widthVisible } = getHeightWidthAndVisible(ref.current)
-        let { height, width } = getNewWidthHeight(ref.current)
-        let { x, y } = getXY(ref.current)
-        setHeight(height)
-        setwidth(width)
-        setHeightVisible(heightVisible)
-        setwidthVisible(widthVisible)
-        setX(x)
-        setY(y)
+        handleChange(ref, setHeight, setwidth, setInView, setVisibleFractionX, setVisibleFractionY, setHeightVisible, setwidthVisible, setX, setY, setScrollX, setScrollXProgress, setScrollY, setScrollYProgress)
     }, [ref.current])
 
     //// Function that invokes change handler
     const onChange = useCallback(() => {
-        handleChange(ref, setHeight, setwidth, setInView, setVisibleFractionX, setVisibleFractionY, setHeightVisible, setwidthVisible, setX, setY)
+        handleChange(ref, setHeight, setwidth, setInView, setVisibleFractionX, setVisibleFractionY, setHeightVisible, setwidthVisible, setX, setY, setScrollX, setScrollXProgress, setScrollY, setScrollYProgress)
     }, [ref])
 
     //// Hook on to window scroll event
@@ -175,6 +213,10 @@ export const useIntersectionRevealer = (ref) => {
         heightVisible,
         widthVisible,
         x,
-        y
+        y,
+        scrollX,
+        scrollXProgress,
+        scrollY,
+        scrollYProgress
     }
 }

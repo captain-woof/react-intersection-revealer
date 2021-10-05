@@ -44,7 +44,7 @@ export default function YourAwesomeComponent(){
 
 ## Usage
 
-**The `useIntersectionRevealer` hook provides you with 9 states that hold stats of the target element:**
+**The `useIntersectionRevealer` hook provides you with 13 states that hold stats of the target element:**
 
 - **inView** *(Boolean)*: True if the element is visible, even if only partially. False otherwise.
 - **visibleFractionX** *(Decimal)*: Fraction of the element's width which is visible; range: [0,1].
@@ -55,6 +55,10 @@ export default function YourAwesomeComponent(){
 - **widthVisible** *(Decimal)*: The width (pixels) of the element's width which is visible.
 - **x** *(Decimal)*: The x coordinate (pixels) of the element from origin where it's rendered.
 - **y** *(Decimal)*: The y coordinate (pixels) of the element from origin where it's rendered.
+- **scrollX** *(Decimal)*: The amount of the element that was scrolled passed by, along x-axis.
+- **scrollXProgress** *(Decimal)*: The fraction of the amount of the element that was scrolled passed by, along x-axis; range: [0,1].
+- **scrollY** *(Decimal)*: The amount of the element that was scrolled passed by, along y-axis.
+- **scrollYProgress** *(Decimal)*: The fraction of the amount of the element that was scrolled passed by, along y-axis; range: [0,1].
 
 **These stats get updated on any of these events:**
   - Viewport resize *(window - onresize)*
@@ -78,7 +82,3 @@ MIT © [captain-woof](https://github.com/captain-woof)
 [![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=captainwoof&button_colour=FFDD00&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/captainwoof)
 
 *Please consider supporting me if you find this package useful in your work.*
-
-## Keywords
-
-hooks, viewport, lazy load, motion, inview, useInView, useIntersectionRevealer, component, react, intersection, react-intersection-observer, react-intersection-revealer

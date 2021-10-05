@@ -5,6 +5,7 @@ import { useIntersectionRevealer } from 'react-intersection-revealer'
 // Styles
 import { IndexContainerStyle } from './styles/indexContainerStyle'
 import { IndexTextStyle } from './styles/indexTextStyle'
+import { IndexTextStyle2 } from './styles/indexTextStyle2'
 import { IndexBoxStyle } from './styles/indexBoxStyle'
 import { GlobalStyle } from './styles/globalStyle'
 import { Button, IndexHeaderStyle, PackageNameText, ButtonContainer } from './styles/indexHeaderStyle'
@@ -34,6 +35,13 @@ export default function App() {
   // For mouse pointer
   const [vanish, setVanish] = useState(false)
 
+  // EXP
+  const refContainer = useRef()
+  const { scrollYProgress } = useIntersectionRevealer(refContainer)
+  useEffect(() => {
+    console.log(scrollYProgress)
+  }, [scrollYProgress])
+
   return (
     <>
       <GlobalStyle />
@@ -53,6 +61,7 @@ export default function App() {
       <IndexTextStyle>
         {showStats
           ? <>
+            <div><b>Black box stats:</b></div>
             <div>{`Rendered at (${Math.round(x)}px, ${Math.round(y)}px)`}</div>
             <div>{`Visible: ${inView}`}</div>
             <div>{`Visible height: ${Math.round(heightVisible)}px`}</div>
@@ -61,13 +70,15 @@ export default function App() {
         }
       </IndexTextStyle>
 
-      <IndexContainerStyle>
+      <IndexTextStyle2>
+        <div>{`You scrolled through ${Math.round(scrollYProgress * 100)}% of the 1st container`}</div>
+      </IndexTextStyle2>
+
+      <IndexContainerStyle ref={refContainer} bgColor="#C59cee">
         <IndexBoxStyle ref={boxRef} />
       </IndexContainerStyle>
 
-      <IndexContainerStyle>
-
-      </IndexContainerStyle>
+      <IndexContainerStyle />
     </>
   )
 }
