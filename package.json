@@ -3,18 +3,31 @@
   "version": "1.1.0",
   "description": "An easy-to-use React hook that tells you whether a component/element is visible on the viewport currently, and if yes, how much of it is visible.",
   "author": "captain-woof",
-  "keywords": ["hooks", "viewport", "lazy load", "motion", "inview", "useInView", "useIntersectionRevealer", "component", "react", "intersection", "react-intersection-observer", "react-intersection-revealer"],
+  "keywords": [
+    "hooks",
+    "viewport",
+    "lazy load",
+    "motion",
+    "inview",
+    "useInView",
+    "useIntersectionRevealer",
+    "component",
+    "react",
+    "intersection",
+    "react-intersection-observer",
+    "react-intersection-revealer"
+  ],
   "homepage": "https://github.com/captain-woof/react-intersection-revealer",
   "license": "MIT",
   "bugs": {
-  		"url" : "https://github.com/captain-woof/react-intersection-revealer/issues",
-  		"email" : "captainwoof.official@gmail.com"
-		},
-	"funding": "https://www.buymeacoffee.com/captainwoof",
+    "url": "https://github.com/captain-woof/react-intersection-revealer/issues",
+    "email": "captainwoof.official@gmail.com"
+  },
+  "funding": "https://www.buymeacoffee.com/captainwoof",
   "repository": "captain-woof/react-intersection-revealer",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
-  "source": "src/index.js",
+  "source": "src/index.ts",
   "engines": {
     "node": ">=10"
   },
@@ -31,9 +44,11 @@
     "deploy": "gh-pages -d example/build -b gh-pages"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.13.1"
   },
   "devDependencies": {
+    "@types/react": "^17.0.34",
+    "@types/react-dom": "^17.0.11",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
@@ -52,7 +67,8 @@
     "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.1",
+    "typescript": "^4.4.4"
   },
   "files": [
     "dist"
