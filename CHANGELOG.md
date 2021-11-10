@@ -9,3 +9,6 @@
 
 ## v1.2.0
     - Added 4 new stats: scrollX, scrollXProgress, scrollY, scrollYProgress
+
+## 1.2.1
+    - Migrated to TS
