@@ -63,7 +63,9 @@ export default function YourAwesomeComponent(){
 **These stats get updated on any of these events:**
   - Viewport resize *(window - onresize)*
   - Page scroll *(window - onscroll)*
-  - Target element transition-end *(targetElement - ontransitionend)*
+  - Parent element scroll *(parentElement - onscroll)*
+  - Target element's transition-end *(targetElement - ontransitionend)*
+  - Parent element's transition-end *(parentElement - ontransitionend)*
 
 **The hook requires a reference to the element to be tracked.** Use the `useRef` hook (from React), get a reference, and pass it to both the `useIntersectionRevealer` hook and the element/component you want to track.
 
