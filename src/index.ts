@@ -154,7 +154,7 @@ const handleChange = (ref: RefObject<HTMLElement>, setHeight: Dispatch<SetStateA
 }
 
 // Below function takes the ref to the element/component that needs to be tracked
-export const useIntersectionRevealer = (ref: RefObject<any>) => {
+export const useIntersectionRevealer = (ref: RefObject<HTMLElement>) => {
   //// States for tracking data
   // stores element visibility (boolean)
   const [inView, setInView] = useState(isElementInView(ref.current))
@@ -199,6 +199,18 @@ export const useIntersectionRevealer = (ref: RefObject<any>) => {
   useEffect(() => {
     ref.current?.addEventListener('transitionend', onChange)
     return () => { ref.current?.removeEventListener('transitionend', onChange) }
+  }, [])
+
+  //// Hook on to parent element's scroll event
+  useEffect(() => {
+    ref.current?.parentElement?.addEventListener('scroll', onChange)
+    return () => { ref.current?.parentElement?.removeEventListener('scroll', onChange) }
+  }, [])
+
+  //// Hook on to parent element's transition
+  useEffect(() => {
+    ref.current?.parentElement?.addEventListener('transitionend', onChange)
+    return () => { ref.current?.parentElement?.removeEventListener('transitionend', onChange) }
   }, [])
 
   //// Hook on to window resize

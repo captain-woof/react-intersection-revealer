@@ -17,7 +17,8 @@
     "styled-components": "^5.3.1"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-object-rest-spread": "^7.8.3"
+    "@babel/plugin-syntax-object-rest-spread": "^7.8.3",
+    "@types/styled-components": "^5.1.15"
   },
   "eslintConfig": {
     "extends": "react-app"

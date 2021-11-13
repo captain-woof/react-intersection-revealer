@@ -1,6 +1,6 @@
 {
   "name": "react-intersection-revealer",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "An easy-to-use React hook that tells you whether a component/element is visible on the viewport currently, and if yes, how much of it is visible.",
   "author": "captain-woof",
   "keywords": [
